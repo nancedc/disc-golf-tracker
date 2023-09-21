@@ -120,8 +120,10 @@ def record_round_score():
         {"$set": {"scores.{}".format(player_name): score}}
     )
 
+    game = games_collection.find_one({"_id": game_id})
+
     # Check if all players have submitted scores for the current round
-    if len(game["scores"]) == len(game["order"]) - 1:
+    if len(game["scores"]) == len(game["order"]):
         # Calculate the order for the next round
         # Assuming you have a function calculate_next_round_order() for this
         next_round_order = calculate_next_round_order(game["order"], game["scores"])
